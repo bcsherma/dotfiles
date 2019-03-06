@@ -1,3 +1,6 @@
+# Source the path file in the home directory
+source ~/.path
+
 # No duplicate lines
 HISTCONTROL=ignoreboth
 
