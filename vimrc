@@ -1,3 +1,10 @@
+" Run pathogen
+execute pathogen#infect()
+
+" Set colorscheme to be hybrid material
+set background=dark
+colorscheme hybrid_material
+
 " turn on line numbering
 set number
 
@@ -12,9 +19,6 @@ set laststatus=2
 " Add a highlight line for the cursor
 set cursorline
 set scrolloff=10
-
-" Run pathogen
-execute pathogen#infect()
 
 " Remember location in files
 if has("autocmd")
