@@ -20,6 +20,9 @@ set laststatus=2
 set cursorline
 set scrolloff=10
 
+" update every 100 ms
+set updatetime=100
+
 " Remember location in files
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
