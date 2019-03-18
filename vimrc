@@ -3,7 +3,7 @@ execute pathogen#infect()
 
 " Set colorscheme to be hybrid material
 set background=dark
-colorscheme hybrid
+colorscheme gruvbox
 
 " turn on line numbering
 set number
