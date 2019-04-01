@@ -8,6 +8,9 @@ colorscheme gruvbox
 " turn on line numbering
 set number
 
+" set searches to be case insensitive
+set ignorecase
+
 " Set tabs to be 4 spaces by default
 set expandtab
 set tabstop=4
