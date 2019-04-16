@@ -5,12 +5,14 @@ execute pathogen#infect()
 filetype plugin on
 syntax on
 
+let g:airline_powerline_fonts = 1
+
 "Remove all trailing whitespace by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " Set colorscheme to be hybrid material
 set background=dark
-colorscheme gruvbox
+colorscheme hybrid_material
 
 " turn on line numbering
 set number
