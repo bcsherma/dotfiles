@@ -5,10 +5,14 @@ execute pathogen#infect()
 filetype plugin on
 syntax on
 
+" enable power line fonts for airline
 let g:airline_powerline_fonts = 1
 
-"Remove all trailing whitespace by pressing F5
+"Remove all trailing white space by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" Allow for spellchecking
+set spelllang=en
 
 " Set colorscheme to be hybrid material
 set background=dark
