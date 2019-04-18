@@ -5,6 +5,10 @@ execute pathogen#infect()
 filetype plugin on
 syntax on
 
+" active relateive line numbering
+set relativenumber
+set rnu
+
 " enable power line fonts for airline
 let g:airline_powerline_fonts = 1
 
