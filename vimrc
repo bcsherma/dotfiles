@@ -33,6 +33,9 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
+" Set textwidth to 72 characters
+set textwidth=72
+
 " Always show a status bar
 set laststatus=2
 
