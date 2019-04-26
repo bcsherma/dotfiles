@@ -5,7 +5,7 @@ source ~/.path
 export ZSH="/home/ben/.oh-my-zsh"
 
 # Set theme
-ZSH_THEME="bullet-train"
+ZSH_THEME="robbyrussell"
 
 # Run oh-my-zsh
 source $ZSH/oh-my-zsh.sh

@@ -20,7 +20,7 @@ set spelllang=en
 
 " Set colorscheme to be hybrid material
 set background=dark
-colorscheme hybrid_material
+colorscheme gruvbox
 
 " turn on line numbering
 set number
