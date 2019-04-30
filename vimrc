@@ -12,8 +12,14 @@ set rnu
 " enable power line fonts for airline
 let g:airline_powerline_fonts = 1
 
-"Remove all trailing white space by pressing F5
+" Remove all trailing white space by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+" Use control hjkl to move between split windows
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Allow for spellchecking
 set spelllang=en
