@@ -23,11 +23,10 @@ nnoremap <C-H> <C-W><C-H>
 
 " Allow for spellchecking
 set spelllang=en
-set spell
 
 " Set colorscheme to be hybrid material
 set background=dark
-colorscheme atom
+colorscheme gruvbox
 
 " turn on line numbering
 set number
