@@ -2,7 +2,7 @@
 execute pathogen#infect()
 
 " use syntax highlighting
-filetype plugin on
+filetype plugin indent on
 syntax on
 
 " active relative line numbering
@@ -15,18 +15,17 @@ set rnu
 " Remove all trailing white space by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-" Use control hjkl to move between split windows
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" Use ; to open up a nerd tree
+nnoremap ; :NERDTreeToggle<CR>
+" Close tree on file open
+let NERDTreeQuitOnOpen=1
 
 " Allow for spellchecking
 set spelllang=en
 
 " Set colorscheme to be hybrid material
 set background=dark
-colorscheme gruvbox
+" colorscheme default
 
 " turn on line numbering
 set number
