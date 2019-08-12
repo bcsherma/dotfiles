@@ -25,7 +25,7 @@ set spelllang=en
 
 " Set colorscheme to be hybrid material
 set background=dark
-" colorscheme default
+colorscheme hybrid_material
 
 " turn on line numbering
 set number
@@ -61,3 +61,11 @@ if has("autocmd")
   filetype plugin indent on
 endif
 
+" airline symbols
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
