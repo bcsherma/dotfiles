@@ -1,5 +1,17 @@
-" Run pathogen
-execute pathogen#infect()
+" Specify plugin install dir
+call plug#begin('~/.vim/plugged')
+
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'neoclide/coc.nvim', {'branch': 'release'} 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Initialize plugin system
+call plug#end()
 
 " use syntax highlighting
 filetype plugin indent on
@@ -15,17 +27,25 @@ set rnu
 " Remove all trailing white space by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
+" Conqueror of completion keybindings
+inoremap <silent><expr> <c-space> coc#refresh()
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
 " Use ; to open up a nerd tree
 nnoremap ; :NERDTreeToggle<CR>
-" Close tree on file open
-let NERDTreeQuitOnOpen=1
+
+" Use mouse scrolling
+set mouse=a
 
 " Allow for spellchecking
 set spelllang=en
 
 " Set colorscheme to be hybrid material
 set background=dark
-colorscheme hybrid_material
 
 " turn on line numbering
 set number
