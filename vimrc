@@ -5,14 +5,19 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'lervag/vimtex'
+Plug 'morhetz/gruvbox'
 
 " Initialize plugin system
 call plug#end()
+
+" Use gruvbox colorscheme
+colorscheme gruvbox
 
 " use syntax highlighting
 filetype plugin indent on
@@ -21,9 +26,6 @@ syntax on
 " active relative line numbering
 set relativenumber
 set rnu
-
-" enable power line fonts for airline
-" let g:airline_powerline_fonts = 1
 
 " Remove all trailing white space by pressing F5
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
@@ -35,6 +37,19 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)    
+nmap <leader>rn <Plug>(coc-rename)
+
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 
 " Use ; to open up a nerd tree
 nnoremap ; :NERDTreeToggle<CR>
@@ -60,7 +75,7 @@ set tabstop=4
 set shiftwidth=4
 
 " Set textwidth to 72 characters
-set textwidth=72
+set textwidth=100
 
 " Always show a status bar
 set laststatus=2
