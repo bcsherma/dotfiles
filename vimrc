@@ -17,6 +17,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'vim-python/python-syntax'
 Plug 'w0ng/vim-hybrid'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'edkolev/tmuxline.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -24,6 +25,9 @@ call plug#end()
 " Create a command to open config
 command Editrc e $MYVIMRC
 command Runrc so $MYVIMRC
+
+" Use ESC to enter normal mode in terminal
+tnoremap <Esc> <C-\><C-n>
 
 " Use material colorscheme
 set background=dark
