@@ -1,4 +1,4 @@
-" Specify plugin install dir
+" Specify plugin install directory
 call plug#begin('~/.vim/plugged')
 
 Plug 'scrooloose/nerdtree'
@@ -16,6 +16,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'w0ng/vim-hybrid'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Initialize plugin system
 call plug#end()
@@ -26,6 +27,12 @@ command Runrc so $MYVIMRC
 
 " Use ESC to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
+
+" Use ; for entering command mode
+nmap ; :
+
+" Use spacebar as leader key
+let mapleader = "\<Space>"
 
 " Use material colorscheme
 set background=dark
@@ -41,7 +48,7 @@ syntax on
 set relativenumber
 set rnu
 
-" Remove all trailing white space by pressing F5
+" Remove all trailing white space by pressing F
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " Conqueror of completion keybindings
@@ -63,8 +70,8 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Use ; to open up a nerd tree
-nnoremap ; :NERDTreeToggle<CR>
+" Coc python import sorting
+command ImportSort :CocCommand python.sortImports
 
 " FZF keybindings
 nmap <leader>b :Buffers<CR>
@@ -76,6 +83,7 @@ set mouse=a
 
 " Allow for spellchecking
 set spelllang=en
+set spell
 
 " Don't wrap text
 set nowrap
