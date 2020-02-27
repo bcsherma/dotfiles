@@ -1,22 +1,28 @@
 " Specify plugin install directory
 call plug#begin('~/.vim/plugged')
 
+" General plugins
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'lervag/vimtex'
 Plug 'christoomey/vim-tmux-navigator'
+
+" Language support plugins
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'lervag/vimtex'
+Plug 'Vimjas/vim-python-pep8-indent'
+
+" Appearance plugins
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
-Plug 'w0ng/vim-hybrid'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'edkolev/tmuxline.vim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'altercation/vim-colors-solarized'
 
 " Initialize plugin system
 call plug#end()
@@ -34,11 +40,13 @@ nmap ; :
 " Use spacebar as leader key
 let mapleader = "\<Space>"
 
+" Add nerdtree toggle keybinding
+nmap <leader>nt :NERDTreeToggle<cr>
+let g:NERDTreeWinSize=50
+
 " Use material colorscheme
-set background=dark
-let g:hybrid_custom_term_colors = 1
-colorscheme hybrid
-let g:airline_color_scheme = 'hybrid'
+set background=light
+colorscheme solarized
 
 " use syntax highlighting
 filetype plugin indent on
@@ -61,6 +69,9 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <leader>rn <Plug>(coc-rename)
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -76,23 +87,21 @@ command ImportSort :CocCommand python.sortImports
 " FZF keybindings
 nmap <leader>b :Buffers<CR>
 nmap <leader>f :Files<CR>
-nmap <leader>h :History:<CR>
+nmap <leader>t :Tags<CR>
 
 " Use mouse scrolling
 set mouse=a
 
-" Allow for spellchecking
+" Allow for spellchecking but not cap checking
 set spelllang=en
 set spell
+set spellcapcheck=""
 
 " Don't wrap text
 set nowrap
 
 " Use jj as esc in insert mode
 imap jj <Esc>
-
-" Set colorscheme to be hybrid material
-set background=dark
 
 " turn on line numbering
 set number
@@ -113,7 +122,6 @@ set laststatus=2
 
 " Add a highlight line for the cursor
 set cursorline
-set scrolloff=999
 
 " update every 100 ms
 set updatetime=100
@@ -128,39 +136,44 @@ if has("autocmd")
   filetype plugin indent on
 endif
 
+
 " Set airline symbols
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 
   " unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.crypt = '🔒 '
 let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
 let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.maxlinenr = '㏑'
-let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
 let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.notexists = 'Ɇ'
 let g:airline_symbols.whitespace = 'Ξ'
 
-" powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+" airline symbols
+let g:airline_left_sep = ' '
+let g:airline_right_sep = ' '
+let g:airline_left_alt_sep = ' '
+let g:airline_right_alt_sep = ' '
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.dirty='⚡'
+
+let g:tmuxline_separators = {
+    \ 'left' : '  ',
+    \ 'left_alt':  ' ',
+    \ 'right' :  ' ',
+    \ 'right_alt' :' ',
+    \ 'space' : ' '}
+
+" Don't use powerline symbols in tmuxline
+let g:tmuxline_powerline_separators = 0
+
+" Change folder symbols for dev icons
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:DevIconsDefaultFolderOpenSymbol = ' '
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ' '
 
