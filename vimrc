@@ -18,9 +18,6 @@ Plug 'Vimjas/vim-python-pep8-indent'
 " Appearance plugins
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'edkolev/tmuxline.vim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'altercation/vim-colors-solarized'
 Plug 'lifepillar/vim-solarized8'
@@ -43,14 +40,10 @@ let mapleader = "\<Space>"
 
 " Add nerdtree toggle keybinding
 nmap <leader>nt :NERDTreeToggle<cr>
-let g:NERDTreeWinSize=50
+let g:NERDTreeWinSize=40
 
 " Use material colorscheme
-if strftime("%H") < 20
-  set background=light
-else
-  set background=dark
-endif
+set background=light
 colorscheme solarized8
 
 " use syntax highlighting
@@ -118,7 +111,7 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
-" Set textwidth to 72 characters
+" Set textwidth to 100 characters
 set textwidth=100
 set colorcolumn=100
 
@@ -140,33 +133,3 @@ endif
 if has("autocmd")
   filetype plugin indent on
 endif
-
-
-" " Set airline symbols
-" if !exists('g:airline_symbols')
-"   let g:airline_symbols = {}
-" endif
-
-" " unicode symbols
-" let g:airline_symbols.crypt = '🔒 '
-" let g:airline_symbols.linenr = '☰'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.paste = 'ρ'
-" let g:airline_symbols.spell = 'Ꞩ'
-" let g:airline_symbols.notexists = 'Ɇ'
-" let g:airline_symbols.whitespace = 'Ξ'
-
-" " airline symbols
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = '☰'
-" let g:airline_symbols.maxlinenr = ''
-" let g:airline_symbols.dirty=' ⚡'
-
-" " Don't use powerline symbols in tmuxline
-" let g:tmuxline_powerline_separators = 0
-
-" " Change folder symbols for dev icons
-" let g:DevIconsEnableFoldersOpenClose = 1
-" let g:DevIconsDefaultFolderOpenSymbol = ' '
-" let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ' '
