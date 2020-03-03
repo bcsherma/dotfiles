@@ -17,12 +17,13 @@ Plug 'Vimjas/vim-python-pep8-indent'
 
 " Appearance plugins
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'edkolev/tmuxline.vim'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'edkolev/tmuxline.vim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 
 " Initialize plugin system
 call plug#end()
@@ -45,19 +46,23 @@ nmap <leader>nt :NERDTreeToggle<cr>
 let g:NERDTreeWinSize=50
 
 " Use material colorscheme
-set background=light
-colorscheme solarized
+if strftime("%H") < 20
+  set background=light
+else
+  set background=dark
+endif
+colorscheme solarized8
 
 " use syntax highlighting
 filetype plugin indent on
 syntax on
 
+" Set clipboard to synchronize with default register
+set clipboard^=unnamed
+
 " active relative line numbering
 set relativenumber
 set rnu
-
-" Remove all trailing white space by pressing F
-nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 " Conqueror of completion keybindings
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -94,7 +99,6 @@ set mouse=a
 
 " Allow for spellchecking but not cap checking
 set spelllang=en
-set spell
 set spellcapcheck=""
 
 " Don't wrap text
@@ -116,6 +120,7 @@ set shiftwidth=4
 
 " Set textwidth to 72 characters
 set textwidth=100
+set colorcolumn=100
 
 " Always show a status bar
 set laststatus=2
@@ -137,43 +142,31 @@ if has("autocmd")
 endif
 
 
-" Set airline symbols
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
+" " Set airline symbols
+" if !exists('g:airline_symbols')
+"   let g:airline_symbols = {}
+" endif
 
-  " unicode symbols
-let g:airline_symbols.crypt = '🔒 '
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = 'Ɇ'
-let g:airline_symbols.whitespace = 'Ξ'
+" " unicode symbols
+" let g:airline_symbols.crypt = '🔒 '
+" let g:airline_symbols.linenr = '☰'
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.paste = 'ρ'
+" let g:airline_symbols.spell = 'Ꞩ'
+" let g:airline_symbols.notexists = 'Ɇ'
+" let g:airline_symbols.whitespace = 'Ξ'
 
-" airline symbols
-let g:airline_left_sep = ' '
-let g:airline_right_sep = ' '
-let g:airline_left_alt_sep = ' '
-let g:airline_right_alt_sep = ' '
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.dirty='⚡'
+" " airline symbols
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = '☰'
+" let g:airline_symbols.maxlinenr = ''
+" let g:airline_symbols.dirty=' ⚡'
 
-let g:tmuxline_separators = {
-    \ 'left' : '  ',
-    \ 'left_alt':  ' ',
-    \ 'right' :  ' ',
-    \ 'right_alt' :' ',
-    \ 'space' : ' '}
+" " Don't use powerline symbols in tmuxline
+" let g:tmuxline_powerline_separators = 0
 
-" Don't use powerline symbols in tmuxline
-let g:tmuxline_powerline_separators = 0
-
-" Change folder symbols for dev icons
-let g:DevIconsEnableFoldersOpenClose = 1
-let g:DevIconsDefaultFolderOpenSymbol = ' '
-let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ' '
-
+" " Change folder symbols for dev icons
+" let g:DevIconsEnableFoldersOpenClose = 1
+" let g:DevIconsDefaultFolderOpenSymbol = ' '
+" let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = ' '
