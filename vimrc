@@ -16,11 +16,11 @@ Plug 'lervag/vimtex'
 Plug 'Vimjas/vim-python-pep8-indent'
 
 " Appearance plugins
+Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'altercation/vim-colors-solarized'
-Plug 'lifepillar/vim-solarized8'
+Plug 'arcticicestudio/nord-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -41,10 +41,10 @@ let mapleader = "\<Space>"
 " Add nerdtree toggle keybinding
 nmap <leader>nt :NERDTreeToggle<cr>
 let g:NERDTreeWinSize=40
+let NERDTreeQuitOnOpen=1
 
 " Use material colorscheme
-set background=light
-colorscheme solarized8
+colorscheme nord
 
 " use syntax highlighting
 filetype plugin indent on
@@ -133,3 +133,18 @@ endif
 if has("autocmd")
   filetype plugin indent on
 endif
+
+" Enable default symbols
+let g:airline_powerline_fonts = 1
+
+" Set powerline glyphs
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" airline symbols
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline_left_sep=''
+let g:airline_right_sep=''
