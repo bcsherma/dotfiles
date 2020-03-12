@@ -13,27 +13,38 @@ Plug 'christoomey/vim-tmux-navigator'
 " Language support plugins
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
-Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'sheerun/vim-polyglot'
+Plug 'pechorin/any-jump.vim'
 
 " Appearance plugins
-Plug 'vim-airline/vim-airline'
 Plug 'airblade/vim-gitgutter'
+Plug 'chriskempson/base16-vim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'arcticicestudio/nord-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " Initialize plugin system
 call plug#end()
 
+" Set colorscheme
+set termguicolors
+colorscheme base16-onedark 
+
 " Create a command to open config
-command Editrc e $MYVIMRC
-command Runrc so $MYVIMRC
+silent! command Editrc e $MYVIMRC
+silent! command Runrc so $MYVIMRC
 
 " Use ESC to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
+" Don't show line numbers in the terminal
+au TermOpen * setlocal nonumber norelativenumber
 
 " Use ; for entering command mode
 nmap ; :
+
+"time waited for key press(es) to complete. It makes for a faster key response
+set ttimeout
+set ttimeoutlen=50
 
 " Use spacebar as leader key
 let mapleader = "\<Space>"
@@ -43,15 +54,9 @@ nmap <leader>nt :NERDTreeToggle<cr>
 let g:NERDTreeWinSize=40
 let NERDTreeQuitOnOpen=1
 
-" Use material colorscheme
-colorscheme nord
-
 " use syntax highlighting
 filetype plugin indent on
 syntax on
-
-" Set clipboard to synchronize with default register
-set clipboard^=unnamed
 
 " active relative line numbering
 set relativenumber
@@ -80,7 +85,7 @@ function! s:show_documentation()
 endfunction
 
 " Coc python import sorting
-command ImportSort :CocCommand python.sortImports
+silent! command ImportSort :CocCommand python.sortImports
 
 " FZF keybindings
 nmap <leader>b :Buffers<CR>
@@ -113,7 +118,7 @@ set shiftwidth=4
 
 " Set textwidth to 100 characters
 set textwidth=100
-set colorcolumn=100
+set colorcolumn=101
 
 " Always show a status bar
 set laststatus=2
@@ -133,18 +138,3 @@ endif
 if has("autocmd")
   filetype plugin indent on
 endif
-
-" Enable default symbols
-let g:airline_powerline_fonts = 1
-
-" Set powerline glyphs
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-" airline symbols
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-let g:airline_left_sep=''
-let g:airline_right_sep=''
