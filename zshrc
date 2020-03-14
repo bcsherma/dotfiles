@@ -1,15 +1,36 @@
-# Source the path file
-source ~/.path
+# Run antigen initialization script.
+source /usr/local/share/antigen/antigen.zsh
 
-# Path to your oh-my-zsh installation.
-export ZSH="/home/ben/.oh-my-zsh"
+# Antigen setup
+antigen use oh-my-zsh
+antigen bundle git
+antigen bundle pip
+antigen bundle command-not-found
+antigen bundle mafredri/zsh-async
+antigen bundle sindresorhus/pure
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle chrissicool/zsh-256color
+antigen theme pure
+antigen apply
 
-# Set theme
-ZSH_THEME="robbyrussell"
+# Load fzf if possible.
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Set plugins
-plugins=(git)
+# Set nvim as default if possible
+if type 'nvim'>/dev/null
+then
+    alias vim=nvim
+fi
 
-# Run oh-my-zsh
-source $ZSH/oh-my-zsh.sh
-
+# Hook in pyenv and direnv if possible
+if type 'pyenv'>/dev/null
+then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+if type 'direnv'>/dev/null
+then
+    eval "$(direnv hook zsh)"
+fi

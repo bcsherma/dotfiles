@@ -22,13 +22,14 @@ Plug 'chriskempson/base16-vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Initialize plugin system
 call plug#end()
 
 " Set colorscheme
 set termguicolors
-colorscheme base16-onedark 
+colorscheme base16-default-dark 
 
 " Create a command to open config
 silent! command Editrc e $MYVIMRC
@@ -37,7 +38,9 @@ silent! command Runrc so $MYVIMRC
 " Use ESC to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
 " Don't show line numbers in the terminal
-au TermOpen * setlocal nonumber norelativenumber
+if has("nvim")
+    au TermOpen * setlocal nonumber norelativenumber
+endif
 
 " Use ; for entering command mode
 nmap ; :
@@ -138,3 +141,20 @@ endif
 if has("autocmd")
   filetype plugin indent on
 endif
+
+" Airline symbol customization
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+
+" unicode symbols
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = 'Ɇ'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ' '
+let g:airline_symbols.dirty='⚡'
