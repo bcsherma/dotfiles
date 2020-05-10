@@ -3,33 +3,36 @@ call plug#begin('~/.vim/plugged')
 
 " General plugins
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Language support plugins
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
-Plug 'sheerun/vim-polyglot'
 Plug 'pechorin/any-jump.vim'
+Plug 'sheerun/vim-polyglot'
 
 " Appearance plugins
 Plug 'airblade/vim-gitgutter'
-Plug 'chriskempson/base16-vim'
-Plug 'ryanoasis/vim-devicons'
+Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'ryanoasis/vim-devicons'
 
 " Initialize plugin system
 call plug#end()
 
 " Set colorscheme
 set termguicolors
-colorscheme base16-default-dark 
+colorscheme gruvbox
 
 " Create a command to open config
 silent! command Editrc e $MYVIMRC
@@ -55,7 +58,9 @@ let mapleader = "\<Space>"
 " Add nerdtree toggle keybinding
 nmap <leader>nt :NERDTreeToggle<cr>
 let g:NERDTreeWinSize=40
-let NERDTreeQuitOnOpen=1
+
+" Add tagbar toggle
+nmap <leader>tb :Tagbar<CR>
 
 " use syntax highlighting
 filetype plugin indent on
@@ -65,7 +70,7 @@ syntax on
 set relativenumber
 set rnu
 
-" Conqueror of completion keybindings
+" " Conqueror of completion keybindings
 inoremap <silent><expr> <c-space> coc#refresh()
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -145,7 +150,7 @@ endif
 " Airline symbol customization
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
-  endif
+endif
 
 " unicode symbols
 let g:airline_symbols.crypt = '🔒'
@@ -158,3 +163,7 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ' '
 let g:airline_symbols.dirty='⚡'
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = '|'
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = '|'
