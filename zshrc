@@ -15,8 +15,19 @@ antigen bundle chrissicool/zsh-256color
 antigen theme pure
 antigen apply
 
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+
 # Load fzf if possible.
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# If running in iterm2, automatically start tmux
+if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+    if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+        tmux attach -t default || tmux new -s default
+    fi
+fi
+
 
 # Set nvim as default if possible
 if type 'nvim'>/dev/null

@@ -3,40 +3,51 @@ call plug#begin('~/.vim/plugged')
 
 " General plugins
 Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'easymotion/vim-easymotion'
+Plug 'pechorin/any-jump.vim'
 
 " Language support plugins
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'Chiel92/vim-autoformat'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'lervag/vimtex'
-Plug 'pechorin/any-jump.vim'
 Plug 'sheerun/vim-polyglot'
 
 " Appearance plugins
-Plug 'airblade/vim-gitgutter'
-Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'ryanoasis/vim-devicons'
+if has('nvim') || has('patch-8.0.902')
+    Plug 'mhinz/vim-signify'
+else
+    Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
+endif
+Plug 'chriskempson/base16-vim'
 
 " Initialize plugin system
 call plug#end()
 
+" Normal mode: Jump to definition under cursore
+nnoremap <leader>j :AnyJump<CR>
+
+" Automatically format on save
+au BufWrite * :Autoformat
+
 " Set colorscheme
 set termguicolors
-colorscheme gruvbox
+colorscheme base16-gruvbox-dark-medium
 
 " Create a command to open config
 silent! command Editrc e $MYVIMRC
 silent! command Runrc so $MYVIMRC
+
+" Modify git gutter markings
+let g:signify_sign_change = '~'
 
 " Use ESC to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
@@ -54,13 +65,11 @@ set ttimeoutlen=50
 
 " Use spacebar as leader key
 let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
 
 " Add nerdtree toggle keybinding
 nmap <leader>nt :NERDTreeToggle<cr>
 let g:NERDTreeWinSize=40
-
-" Add tagbar toggle
-nmap <leader>tb :Tagbar<CR>
 
 " use syntax highlighting
 filetype plugin indent on
@@ -70,7 +79,7 @@ syntax on
 set relativenumber
 set rnu
 
-" " Conqueror of completion keybindings
+" Conqueror of completion keybindings
 inoremap <silent><expr> <c-space> coc#refresh()
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -85,20 +94,22 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
-
-" Coc python import sorting
-silent! command ImportSort :CocCommand python.sortImports
 
 " FZF keybindings
 nmap <leader>b :Buffers<CR>
 nmap <leader>f :Files<CR>
 nmap <leader>t :Tags<CR>
+nmap <leader>c :Commands<CR>
+
+" Use a floating window instead of lower frame
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+
 
 " Use mouse scrolling
 set mouse=a
@@ -125,8 +136,8 @@ set tabstop=4
 set shiftwidth=4
 
 " Set textwidth to 100 characters
-set textwidth=100
-set colorcolumn=101
+set textwidth=80
+set colorcolumn=81
 
 " Always show a status bar
 set laststatus=2
@@ -137,33 +148,21 @@ set cursorline
 " update every 100 ms
 set updatetime=100
 
+" Toggle scrolloff between 0 and 999
+nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
+set scrolloff=999
+
 " Remember location in files
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 " Detect file types
 if has("autocmd")
-  filetype plugin indent on
+    filetype plugin indent on
 endif
 
 " Airline symbol customization
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-
-" unicode symbols
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = 'Ɇ'
-let g:airline_symbols.whitespace = 'Ξ'
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = '☰'
-let g:airline_symbols.maxlinenr = ' '
-let g:airline_symbols.dirty='⚡'
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = '|'
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = '|'
