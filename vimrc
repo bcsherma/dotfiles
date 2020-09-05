@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
 " Misc plugins
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-surround'
 Plug 'ludovicchabant/vim-gutentags'
@@ -17,6 +18,7 @@ Plug 'pechorin/any-jump.vim'
 
 " Language support plugins
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-test/vim-test'
 Plug 'Chiel92/vim-autoformat'
 Plug 'lervag/vimtex'
 
@@ -30,6 +32,9 @@ Plug 'ryanoasis/vim-devicons'
 
 " Initialize plugin system
 call plug#end()
+
+" Use dispatch to run tests
+let test#strategy = "dispatch"
 
 " Normal mode: Jump to definition under cursore
 nnoremap <leader>j :AnyJump<CR>
