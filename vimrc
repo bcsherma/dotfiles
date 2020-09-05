@@ -1,33 +1,32 @@
 " Specify plugin install directory
 call plug#begin('~/.vim/plugged')
 
-" General plugins
-Plug 'scrooloose/nerdtree'
+" Misc plugins
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-surround'
+Plug 'ludovicchabant/vim-gutentags'
+
+" Navigation plugins
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'pechorin/any-jump.vim'
 
 " Language support plugins
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Chiel92/vim-autoformat'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'lervag/vimtex'
-Plug 'sheerun/vim-polyglot'
 
-" Appearance plugins
-if has('nvim') || has('patch-8.0.902')
-    Plug 'mhinz/vim-signify'
-else
-    Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
-endif
-Plug 'chriskempson/base16-vim'
+" Appearance Plugins
+Plug 'gruvbox-community/gruvbox'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'sheerun/vim-polyglot'
+Plug 'ryanoasis/vim-devicons'
 
 " Initialize plugin system
 call plug#end()
@@ -39,18 +38,18 @@ nnoremap <leader>j :AnyJump<CR>
 au BufWrite * :Autoformat
 
 " Set colorscheme
-set termguicolors
-colorscheme base16-gruvbox-dark-medium
+colorscheme gruvbox
 
 " Create a command to open config
 silent! command Editrc e $MYVIMRC
 silent! command Runrc so $MYVIMRC
 
-" Modify git gutter markings
-let g:signify_sign_change = '~'
+" set latex flavor
+let g:tex_flavor = 'latex'
 
 " Use ESC to enter normal mode in terminal
 tnoremap <Esc> <C-\><C-n>
+
 " Don't show line numbers in the terminal
 if has("nvim")
     au TermOpen * setlocal nonumber norelativenumber
@@ -108,8 +107,7 @@ nmap <leader>t :Tags<CR>
 nmap <leader>c :Commands<CR>
 
 " Use a floating window instead of lower frame
-let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
-
+let g:fzf_layout = {'window': { 'width': 0.8, 'height': 0.8 } }
 
 " Use mouse scrolling
 set mouse=a
@@ -148,10 +146,6 @@ set cursorline
 " update every 100 ms
 set updatetime=100
 
-" Toggle scrolloff between 0 and 999
-nnoremap <Leader>zz :let &scrolloff=999-&scrolloff<CR>
-set scrolloff=999
-
 " Remember location in files
 if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -162,7 +156,5 @@ if has("autocmd")
     filetype plugin indent on
 endif
 
-" Airline symbol customization
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+let g:airline#extensions#tabline#enabled = 1
+
