@@ -1,5 +1,4 @@
 """""""""""""""""""""""""""""""""""""
-" _   __ (_)____ ___   _____ _____  "
 " | | / // // __ `__ \ / ___// ___/ "
 " | |/ // // / / / / // /   / /__   "
 " |___//_//_/ /_/ /_//_/    \___/   "
@@ -23,7 +22,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
-Plug 'pechorin/any-jump.vim'
 
 " Language support plugins
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -51,6 +49,10 @@ set colorcolumn=81
 set relativenumber
 set cursorline
 set updatetime=10
+nmap ; :
+let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
+au BufWrite * :Autoformat
 colorscheme gruvbox
 
 " Airline config
@@ -66,25 +68,32 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰ '
 let g:airline_symbols.maxlinenr = '  '
-let g:airline_symbols.dirty='⚡'
+let g:airline_symbols.dirty=' ⚡'
 
-" Keybindings
-nmap ; :
-let mapleader = "\<Space>"
-let maplocalleader = "\<Space>"
-nmap <leader>b :Buffers<CR>
-nmap <leader>f :Files<CR>
-nmap <leader>t :Tags<CR>
-nmap <leader>c :Commands<CR>
-nmap <leader>e :NERDTreeToggle<CR>
+" COC keybindings
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent><nowait> <leader>d  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
 nmap <leader>rn <Plug>(coc-rename)
-nnoremap <leader>j :AnyJump<CR>
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" FZF settings
+nmap <leader>b :Buffers<CR>
+nmap <leader>f :Files<CR>
+nmap <leader>c :Commands<CR>
+let g:fzf_layout = {'window': { 'width': 0.8, 'height': 0.8 } }
 
 " Misc settings
+nmap <leader>e :NERDTreeToggle<CR>
 let g:tex_flavor = 'latex'
-let g:fzf_layout = {'window': { 'width': 0.8, 'height': 0.8 } }
 let test#strategy = "dispatch"
-au BufWrite * :Autoformat
