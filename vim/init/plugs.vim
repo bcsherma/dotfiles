@@ -2,6 +2,7 @@
 call plug#begin('~/.vim/plugged')
 " Misc plugins
 Plug 'tpope/vim-sensible'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
