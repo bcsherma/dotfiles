@@ -12,9 +12,9 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-repeat'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-surround'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
 
@@ -23,20 +23,20 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
+Plug 'justinmk/vim-sneak'
 
 " Language support plugins
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-test/vim-test'
-Plug 'Chiel92/vim-autoformat'
 Plug 'lervag/vimtex'
 
 " Appearance Plugins
-Plug 'gruvbox-community/gruvbox'
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
-" Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
+Plug 'sainnhe/gruvbox-material'
 
 call plug#end()
 
@@ -49,27 +49,24 @@ set textwidth=80
 set colorcolumn=81
 set relativenumber
 set cursorline
+set scrolloff=999
 set updatetime=10
 nmap ; :
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
-au BufWrite * :Autoformat
-colorscheme gruvbox
+tnoremap <Esc> <C-\><C-n>
+colorscheme gruvbox-material
 
-" Airline config
+" " Airline config
 let g:airline#extensions#tabline#enabled = 1
-" if !exists('g:airline_symbols')
-"     let g:airline_symbols = {}
-" endif
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = '☰ '
-" let g:airline_symbols.maxlinenr = '  '
-" let g:airline_symbols.dirty=' ⚡'
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰ '
+let g:airline_symbols.maxlinenr = '  '
+let g:airline_symbols.dirty=' ⚡'
 
 " COC keybindings
 nmap <silent> gd <Plug>(coc-definition)
@@ -87,6 +84,16 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
 " FZF settings
 nmap <leader>b :Buffers<CR>
@@ -98,3 +105,4 @@ let g:fzf_layout = {'window': { 'width': 0.8, 'height': 0.8 } }
 nmap <leader>e :NERDTreeToggle<CR>
 let g:tex_flavor = 'latex'
 let test#strategy = "dispatch"
+let g:sneak#label = 1
