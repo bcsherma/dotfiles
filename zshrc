@@ -1,5 +1,5 @@
 # Run antigen initialization script.
-source /usr/local/share/antigen/antigen.zsh
+source ~/antigen/antigen.zsh
 
 # Antigen setup
 antigen use oh-my-zsh
