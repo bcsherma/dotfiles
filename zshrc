@@ -34,7 +34,6 @@ then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
-if type 'direnv'>/dev/null
-then
-    eval "$(direnv hook zsh)"
-fi
+
+# Load environment variables from .profile
+source ~/.profile
