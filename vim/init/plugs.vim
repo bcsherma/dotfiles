@@ -1,4 +1,8 @@
-" Vim plugins loading with vim-plug
+" If in nvim, need to get plugged into the run time path
+if has('nvim')
+  set runtimepath^=~/.vim runtimepath+=~/.vim/after
+  let &packpath=&runtimepath
+endif
 call plug#begin('~/.vim/plugged')
 " Misc plugins
 Plug 'tpope/vim-sensible'
@@ -26,7 +30,5 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
-Plug 'ryanoasis/vim-devicons'
 Plug 'sainnhe/gruvbox-material'
-" Done
 call plug#end()
