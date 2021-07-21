@@ -9,8 +9,7 @@ antigen bundle pipenv
 antigen bundle tmux
 antigen bundle docker
 antigen bundle vi-mode
-antigen bundle sindresorhus/pure
-antigen theme pure
+antigen theme robbyrussell
 antigen apply
 
 # Don't use AUTO_CD!
