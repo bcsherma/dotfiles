@@ -22,6 +22,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
+Plug 'christoomey/vim-tmux-navigator'
 " Language support plugins
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-test/vim-test'
