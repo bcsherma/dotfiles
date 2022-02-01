@@ -53,6 +53,7 @@ set relativenumber
 set cursorline
 set scrolloff=999
 set updatetime=10
+set background=dark
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 tnoremap <Esc> <C-\><C-n>
