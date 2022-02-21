@@ -20,9 +20,6 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'voldikss/vim-floaterm'
 " Navigation plugins
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -32,15 +29,12 @@ Plug 'justinmk/vim-sneak'
 Plug 'christoomey/vim-tmux-navigator'
 " Language support plugins
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vim-test/vim-test'
-Plug 'lervag/vimtex'
 " Appearance Plugins
+Plug 'morhetz/gruvbox'
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
-Plug 'sainnhe/gruvbox-material'
 call plug#end()
+
 
 " Basic settings
 set nowrap
@@ -51,13 +45,13 @@ set textwidth=80
 set colorcolumn=81
 set relativenumber
 set cursorline
-set scrolloff=999
 set updatetime=10
 set background=dark
+colorscheme gruvbox
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 tnoremap <Esc> <C-\><C-n>
-colorscheme gruvbox-material
+
 
 " Airline config
 let g:airline#extensions#tabline#enabled = 1
@@ -108,3 +102,6 @@ nmap <leader>e :NERDTreeToggle<CR>
 let g:tex_flavor = 'latex'
 let test#strategy = "dispatch"
 let g:sneak#label = 1
+
+" Don't let the colorscheme overwrite the background
+autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
