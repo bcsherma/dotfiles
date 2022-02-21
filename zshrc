@@ -4,13 +4,12 @@ source ~/antigen/antigen.zsh
 # Antigen setup
 antigen use oh-my-zsh
 antigen bundle git
-antigen bundle pip
-antigen bundle pipenv
 antigen bundle tmux
 antigen bundle docker
 antigen bundle vi-mode
-antigen theme robbyrussell
+antigen theme bureau 
 antigen apply
+
 
 # Don't use AUTO_CD!
 unsetopt AUTO_CD
@@ -27,12 +26,7 @@ then
     alias vim=nvim
 fi
 
-# Hook in pyenv and direnv if possible
-if type 'pyenv'>/dev/null
-then
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
-
-# Load environment variables from .profile
-source ~/.profile
+export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
