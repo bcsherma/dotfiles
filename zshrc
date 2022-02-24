@@ -10,7 +10,6 @@ antigen bundle vi-mode
 antigen theme bureau 
 antigen apply
 
-
 # Don't use AUTO_CD!
 unsetopt AUTO_CD
 
@@ -26,7 +25,3 @@ then
     alias vim=nvim
 fi
 
-export PATH="$HOME/.pyenv/bin:$PATH"
-export PATH="/usr/local/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
