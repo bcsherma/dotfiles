@@ -6,8 +6,10 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle tmux
 antigen bundle docker
+antigen bundle aws
 antigen bundle vi-mode
-antigen theme bureau 
+antigen theme robbyrussell 
+antigen bundle zsh-users/zsh-autosuggestions 
 antigen apply
 
 
@@ -25,6 +27,8 @@ if type 'nvim'>/dev/null
 then
     alias vim=nvim
 fi
+
+eval "$(direnv hook zsh)"
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"

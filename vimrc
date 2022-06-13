@@ -1,38 +1,34 @@
-"""""""""""""""""""""""""""""""""""""
-" | | / // // __ `__ \ / ___// ___/ "
-" | |/ // // / / / / // /   / /__   "
-" |___//_//_/ /_/ /_//_/    \___/   "
-"                                   "
-"""""""""""""""""""""""""""""""""""""
-
 " If in nvim, need to get plugged into the run time path
 if has('nvim')
   set runtimepath^=~/.vim runtimepath+=~/.vim/after
   let &packpath=&runtimepath
 endif
 call plug#begin('~/.vim/plugged')
+
 " Misc plugins
 Plug 'tpope/vim-sensible'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
-Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-surround'
+Plug 'neovim/nvim-lspconfig'
+
 " Navigation plugins
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 Plug 'christoomey/vim-tmux-navigator'
-" Language support plugins
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Appearance Plugins
-Plug 'morhetz/gruvbox'
+Plug 'projekt0n/github-nvim-theme'
 Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 call plug#end()
 
 
@@ -45,50 +41,45 @@ set textwidth=80
 set colorcolumn=81
 set relativenumber
 set cursorline
-set updatetime=10
-set background=dark
-colorscheme gruvbox
+colorscheme github_dark
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 tnoremap <Esc> <C-\><C-n>
 
-" COC keybindings
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nnoremap <silent><nowait> <leader>d  :<C-u>CocList diagnostics<cr>
-nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
-nmap <leader>rn <Plug>(coc-rename)
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
+lua <<EOF
+require'lspconfig'.pyright.setup{}
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+end
+EOF
 
 " FZF settings
-nmap <leader>b :Buffers<CR>
-nmap <leader>f :Files<CR>
-nmap <leader>c :Commands<CR>
+nnoremap <c-P> <cmd>lua require('fzf-lua').files()<CR>
+" nmap <leader>b :Buffers<CR>
+" nmap <leader>f :Files<CR>
+" nmap <leader>c :Commands<CR>
 let g:fzf_layout = {'window': { 'width': 0.8, 'height': 0.8 } }
 
 " Misc settings
-nmap <leader>e :NERDTreeToggle<CR>
-let g:tex_flavor = 'latex'
-let test#strategy = "dispatch"
 let g:sneak#label = 1
 
 " Don't let the colorscheme overwrite the background
