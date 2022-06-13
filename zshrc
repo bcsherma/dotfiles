@@ -8,10 +8,8 @@ antigen bundle tmux
 antigen bundle docker
 antigen bundle aws
 antigen bundle vi-mode
-antigen theme robbyrussell 
-antigen bundle zsh-users/zsh-autosuggestions 
+antigen theme robbyrussell
 antigen apply
-
 
 # Don't use AUTO_CD!
 unsetopt AUTO_CD
