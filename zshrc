@@ -7,8 +7,8 @@ antigen bundle git
 antigen bundle tmux
 antigen bundle docker
 antigen bundle aws
-antigen bundle vi-mode
-antigen theme robbyrussell
+antigen bundle gcloud
+antigen theme bureau
 antigen apply
 
 # Don't use AUTO_CD!
