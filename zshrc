@@ -26,8 +26,21 @@ then
     alias vim=nvim
 fi
 
-export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/bin:$PATH
-eval "$(direnv hook zsh)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# Enable kubectl autocompletion if possible
+if type 'kubectl'>/dev/null
+then
+    source <(kubectl completion zsh)
+fi
+
+if type 'pyenv'>/dev/null
+then
+    export PYENV_ROOT=$HOME/.pyenv
+    export PATH=$PYENV_ROOT/bin:$PATH
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+
+if type 'direnv'>/dev/null
+then
+    eval "$(direnv hook zsh)"
+fi
