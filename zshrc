@@ -1,19 +1,21 @@
-# Run antigen initialization script.
-source ~/antigen/antigen.zsh
+# Use oh my zsh wherever we can
+export ZSH="$HOME/.oh-my-zsh"
 
-# Antigen setup
-antigen use oh-my-zsh
-antigen bundle git
-antigen bundle tmux
-antigen bundle docker
-antigen bundle aws
-antigen bundle gcloud
-antigen theme bureau
-antigen apply
+# Set plugins
+plugins=(git docker)
+
+# Source zshrc
+if [ -f /opt/homebrew/opt/spaceship/spaceship.zsh ]; then
+    source /opt/homebrew/opt/spaceship/spaceship.zsh
+else
+    ZSH_THEME="bureau"
+fi
+source $ZSH/oh-my-zsh.sh
 
 # Don't use AUTO_CD!
 unsetopt AUTO_CD
 
+# This allow ctrl-p/n for search navigation
 bindkey "^p" up-line-or-search
 bindkey "^n" down-line-or-search
 
