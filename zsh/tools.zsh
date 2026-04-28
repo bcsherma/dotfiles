@@ -1,7 +1,20 @@
-# pyenv
-if command -v pyenv >/dev/null; then
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
+# pyenv — lazy load. Shims go on PATH eagerly so script shebangs
+# (#!/usr/bin/env python) resolve correctly. The expensive `pyenv init`
+# (~225ms) and `pyenv virtualenv-init` (~80ms) only run on first
+# interactive use of pyenv/python/pip.
+if [ -d "$PYENV_ROOT/shims" ]; then
+  path=("$PYENV_ROOT/shims" $path)
+
+  __pyenv_lazy() {
+    unfunction pyenv python python3 pip pip3 __pyenv_lazy
+    eval "$(command pyenv init -)"
+    eval "$(command pyenv virtualenv-init -)"
+  }
+  pyenv()   { __pyenv_lazy; pyenv "$@"; }
+  python()  { __pyenv_lazy; python "$@"; }
+  python3() { __pyenv_lazy; python3 "$@"; }
+  pip()     { __pyenv_lazy; pip "$@"; }
+  pip3()    { __pyenv_lazy; pip3 "$@"; }
 fi
 
 # nvm — fast load: put default node on PATH, then source nvm with --no-use
@@ -23,5 +36,15 @@ fi
 # direnv
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
-# kubectl completion
-command -v kubectl >/dev/null && source <(kubectl completion zsh)
+# kubectl completion — cached to disk; regenerated only when the kubectl
+# binary changes (mtime check). Saves ~100ms per shell.
+if command -v kubectl >/dev/null; then
+  _kc_cache="$HOME/.cache/zsh/kubectl-completion.zsh"
+  _kc_bin="$(command -v kubectl)"
+  if [[ ! -f "$_kc_cache" || "$_kc_bin" -nt "$_kc_cache" ]]; then
+    mkdir -p "${_kc_cache:h}"
+    kubectl completion zsh > "$_kc_cache"
+  fi
+  source "$_kc_cache"
+  unset _kc_cache _kc_bin
+fi
