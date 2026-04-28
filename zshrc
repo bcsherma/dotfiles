@@ -1,48 +1,20 @@
-# Use oh my zsh wherever we can
+# Interactive shell config. Modular bits live in $DOTFILES/zsh/.
+
+# oh-my-zsh
 export ZSH="$HOME/.oh-my-zsh"
-
-# Set plugins
+ZSH_THEME=""
 plugins=(git docker)
+[ -f "$ZSH/oh-my-zsh.sh" ] && source "$ZSH/oh-my-zsh.sh"
 
-# Source zshrc
-if [ -f /opt/homebrew/opt/spaceship/spaceship.zsh ]; then
-    source /opt/homebrew/opt/spaceship/spaceship.zsh
-else
-    ZSH_THEME="bureau"
-fi
-source $ZSH/oh-my-zsh.sh
+# Modular config — explicit order so PATH is set before tool-detection runs.
+for _f in paths history fzf tools aliases projects; do
+  _path="$DOTFILES/zsh/$_f.zsh"
+  [ -r "$_path" ] && source "$_path"
+done
+unset _f _path
 
-# Don't use AUTO_CD!
-unsetopt AUTO_CD
+# Optional machine-local overrides (gitignored)
+[ -r "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
-# This allow ctrl-p/n for search navigation
-bindkey "^p" up-line-or-search
-bindkey "^n" down-line-or-search
-
-# Load fzf if possible.
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Set nvim as default if possible
-if type 'nvim'>/dev/null
-then
-    alias vim=nvim
-fi
-
-# Enable kubectl autocompletion if possible
-if type 'kubectl'>/dev/null
-then
-    source <(kubectl completion zsh)
-fi
-
-if type 'pyenv'>/dev/null
-then
-    export PYENV_ROOT=$HOME/.pyenv
-    export PATH=$PYENV_ROOT/bin:$PATH
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
-
-if type 'direnv'>/dev/null
-then
-    eval "$(direnv hook zsh)"
-fi
+# Prompt — last so nothing overrides it
+command -v starship >/dev/null && eval "$(starship init zsh)"

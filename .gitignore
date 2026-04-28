@@ -1,2 +1,10 @@
 tags
 vim/plugged
+
+# Defense in depth — secrets live outside this repo, but if anyone ever
+# drops one of these names inside the repo by mistake, don't commit it.
+secrets.zsh
+*.secret
+*.local
+.env
+.env.*
