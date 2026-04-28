@@ -5,7 +5,6 @@ path=(
   "$HOME/.local/bin"
   "$HOME/.cargo/bin"
   "$BUN_INSTALL/bin"
-  "$PYENV_ROOT/bin"
   "$HOME/go/bin"
   "$HOME/wf/bin"
   "$HOME/devtools/bin"

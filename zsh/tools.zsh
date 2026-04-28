@@ -1,21 +1,6 @@
-# pyenv — lazy load. Shims go on PATH eagerly so script shebangs
-# (#!/usr/bin/env python) resolve correctly. The expensive `pyenv init`
-# (~225ms) and `pyenv virtualenv-init` (~80ms) only run on first
-# interactive use of pyenv/python/pip.
-if [ -d "$PYENV_ROOT/shims" ]; then
-  path=("$PYENV_ROOT/shims" $path)
-
-  __pyenv_lazy() {
-    unfunction pyenv python python3 pip pip3 __pyenv_lazy
-    eval "$(command pyenv init -)"
-    eval "$(command pyenv virtualenv-init -)"
-  }
-  pyenv()   { __pyenv_lazy; pyenv "$@"; }
-  python()  { __pyenv_lazy; python "$@"; }
-  python3() { __pyenv_lazy; python3 "$@"; }
-  pip()     { __pyenv_lazy; pip "$@"; }
-  pip3()    { __pyenv_lazy; pip3 "$@"; }
-fi
+# Python: managed by uv (https://docs.astral.sh/uv/). No shell init needed —
+# `uv venv`, `uv run`, and `uv python` handle everything. pyenv is intentionally
+# absent; core's dev-setup/pre-flight.sh enforces this.
 
 # nvm — fast load: put default node on PATH, then source nvm with --no-use
 # to skip the slow `nvm use` (~1.1s).

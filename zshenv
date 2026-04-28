@@ -5,15 +5,10 @@ export DOTFILES="${DOTFILES:-$HOME/repos/dotfiles}"
 
 # Tool roots
 export NVM_DIR="$HOME/.nvm"
-export PYENV_ROOT="$HOME/.pyenv"
 export BUN_INSTALL="$HOME/.bun"
 
 # Go
 export GOARCH=arm64
-
-# pyenv: keep its prompt segments off
-export PYENV_PROMPT_DISABLE=1
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # Misc app config
 export GOVERNOR_TEXT_ONLY=true
