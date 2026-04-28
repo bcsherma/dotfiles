@@ -2,18 +2,9 @@
 # `uv venv`, `uv run`, and `uv python` handle everything. pyenv is intentionally
 # absent; core's dev-setup/pre-flight.sh enforces this.
 
-# nvm — fast load: put default node on PATH, then source nvm with --no-use
-# to skip the slow `nvm use` (~1.1s).
-if [ -d "$NVM_DIR" ]; then
-  __nvm_default="$(cat "$NVM_DIR/alias/default" 2>/dev/null)"
-  if [ -n "$__nvm_default" ]; then
-    __nvm_default_bin="$NVM_DIR/versions/node/v$(ls "$NVM_DIR/versions/node" 2>/dev/null | grep "^v${__nvm_default}\." | sort -V | tail -1 | sed 's/^v//')/bin"
-    [ -d "$__nvm_default_bin" ] && path=("$__nvm_default_bin" $path)
-  fi
-  unset __nvm_default __nvm_default_bin
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-fi
+# Node: managed by flox per-project. nvm is intentionally absent; core's
+# dev-setup/pre-flight.sh refuses to run with nvm in the shell. For node
+# outside flox envs, install via `brew install node` or use bun.
 
 # bun completions
 [ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"

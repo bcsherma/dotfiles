@@ -4,7 +4,6 @@
 export DOTFILES="${DOTFILES:-$HOME/repos/dotfiles}"
 
 # Tool roots
-export NVM_DIR="$HOME/.nvm"
 export BUN_INSTALL="$HOME/.bun"
 
 # Go

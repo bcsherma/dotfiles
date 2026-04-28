@@ -1,4 +1,7 @@
 # Interactive shell config. Modular bits live in $DOTFILES/zsh/.
+# direnv hook is configured in zsh/tools.zsh (this comment is here so
+# core/dev-setup/setup.sh's grep for "direnv hook" succeeds without
+# appending a duplicate to the symlinked file).
 
 # Modular config — explicit order: init (compinit + options) first,
 # paths before tool-detection, prompt last.
